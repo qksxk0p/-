@@ -1,7 +1,10 @@
-K, L = map(int,input().split())
+import sys
+K, L = map(int,sys.stdin.readline().split())
 dic = {}
 for i in range(L):
-    st = input()
+    st = str(sys.stdin.readline())
     dic[st] = i
+dic = sorted(dic.items(), key=lambda x: x[1])
+K = min(K, len(dic))
 for j in range(K):
-    print(dic.keys[j])
+    sys.stdout.write(dic[j][0])
