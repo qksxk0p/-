@@ -1,0 +1,10 @@
+a = int(input())
+b = int(input())
+c = int(input())
+d = int(input())
+e = int(input())
+ha = [a, b, c]
+dr = [d, e]
+ham = min(ha)
+drink = min(dr)
+print(ham + drink - 50)
