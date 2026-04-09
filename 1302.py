@@ -13,5 +13,4 @@ dap = []
 for k in sorted(dict):
     if res == dict.get(k):
         dap.append(k)
-for l in dap:
-    print(l)
+print(dap[0])
