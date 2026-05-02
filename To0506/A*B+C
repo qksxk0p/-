@@ -1,0 +1,36 @@
+import random
+N = int(input())
+def num(p):
+    hap = []
+    for i in range(p):
+        h = []
+        for j in range(p):
+            h.append(random.randint(1, p*p*10 - 1))
+        hap.append(h)
+    return hap
+def show(square):
+    for i in square:
+        for j in i:
+            print(f"{j:5}", end='')
+        print()
+A = num(N)
+B = num(N)
+C = num(N)
+#A*B
+ahapb = []
+for i in range(N):#행
+    hap = []
+    for j in range(N):#열
+        s = 0
+        for k in range(N):#곱
+            s += A[i][k] * B[k][j]
+        hap.append(s)
+    ahapb.append(hap)
+#+C
+res = []
+for i in range(N):
+    hap = []
+    for j in range(N):
+        hap.append(ahapb[i][j] + C[i][j])
+    res.append(hap)
+show(res)
