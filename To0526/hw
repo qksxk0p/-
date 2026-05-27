@@ -1,0 +1,63 @@
+import os
+
+def get_files(directory):
+    files = {}
+
+    with os.scandir(directory) as entries:
+        for entry in entries:
+            if entry.is_file():
+                stat = os.stat(entry.path)
+
+                files[entry.name] = {
+                    "size": stat.st_size,
+                    "path": entry.path
+                }
+
+    return files
+
+def compare_content(file1, file2):
+    with open(file1, "rb") as f1, open(file2, "rb") as f2:
+        return f1.read() == f2.read()
+
+
+dir1 = input("첫 번째 디렉토리 이름: ")
+dir2 = input("두 번째 디렉토리 이름: ")
+
+files1 = get_files(dir1)
+files2 = get_files(dir2)
+
+if len(files1) != len(files2):
+    print("파일 개수가 다릅니다.")
+else:
+    print("파일 개수가 같습니다.")
+
+names1 = set(files1.keys())
+names2 = set(files2.keys())
+
+if names1 != names2:
+    print("파일 이름이 다릅니다.")
+else:
+    print("파일 이름이 같습니다.")
+same = True
+
+for name in names1 & names2:
+    if files1[name]["size"] != files2[name]["size"]:
+        print(f"{name}: 파일 크기가 다릅니다.")
+        same = False
+
+    else:
+        result = compare_content(
+            files1[name]["path"],
+            files2[name]["path"]
+        )
+
+        if result:
+            print(f"{name}: 내용이 같습니다.")
+        else:
+            print(f"{name}: 내용이 다릅니다.")
+            same = False
+
+if same:
+    print("두 디렉토리는 완전히 같습니다.")
+else:
+    print("두 디렉토리는 다릅니다.")
